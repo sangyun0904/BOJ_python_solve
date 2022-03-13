@@ -34,3 +34,4 @@ for num in numList:
     
 for i in checkList:
     print(numDict[i], end=" ")
+    
