@@ -6,32 +6,21 @@ Created on Sat Mar 12 17:10:09 2022
 @author: sangyoon
 """
 
-n = int(input())
-numList = list(map(int, input().split()))
-        
-m = int(input())
-checkList = list(map(int, input().split()))
+import sys 
 
-numDict = {}
+# num = int(sys.stdin.readline())
+num = 26
+newNum = num
+cnt = 0
 
-for num in checkList:
-    numDict[num] = 0
-
-sortedList = sorted(checkList)
-
-for num in numList:
-    start = 0
-    end = len(sortedList) - 1
-    while start <= end:
-        mid = (start + end) // 2
-        if sortedList[mid] == num:
-            numDict[num] += 1
-            break
-        elif sortedList[mid] > num:
-            end = mid - 1
-        else:
-            start = mid + 1
+while True:
+    if newNum < 10:
+        newNum = newNum * 11
+    else:
+        newNum = (newNum % 10) * 10 + ((newNum // 10 + newNum % 10) % 10)
+    cnt += 1
     
-for i in checkList:
-    print(numDict[i], end=" ")
-    
+    if num == newNum:
+        break
+
+print(cnt)
