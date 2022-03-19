@@ -12,7 +12,11 @@ step = 0
 
 while True:
     step += cnt
-    if step > N:
+    if step >= N:
         break
     cnt += 1
     
+if cnt % 2 == 0:
+    print(cnt - step + N, "/", step - N + 1, sep="")
+else:
+    print(step - N + 1, "/", cnt - step + N, sep="")
