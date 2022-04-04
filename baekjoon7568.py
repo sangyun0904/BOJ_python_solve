@@ -12,7 +12,10 @@ xyList = []
 
 for _ in range(N):
     xyList.append(list(map(int, sys.stdin.readline().split())))
-    
-xyList.sort(reverse=True)
 
-print(xyList)
+for i in xyList:
+    rank = 1
+    for j in xyList:
+        if i[0] < j[0] and i[1] < j[1]:
+            rank += 1
+    print(rank, end=" ")
