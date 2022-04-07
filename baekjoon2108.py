@@ -7,6 +7,7 @@ Created on Wed Apr  6 16:09:23 2022
 """
 
 import sys 
+from collections import Counter
 
 N = int(sys.stdin.readline())
 
@@ -18,23 +19,14 @@ for _ in range(N):
     
 n_list.sort()
 
-max_cnt = 0
-max_cnt_nums = []
-
-for i in set(n_list):
-    cnt = n_list.count(i)
-    if cnt > max_cnt:
-        max_cnt_nums = [i]
-        max_cnt = cnt
-    elif cnt == max_cnt:
-        max_cnt_nums.append(i)
-
-max_cnt_nums.sort()
-
+n_count = sorted((Counter(n_list).items()), key = lambda x: (-x[1], x[0]))
 print(round(sum(n_list) / len(n_list)))
 print(n_list[len(n_list) // 2])
-if len(max_cnt_nums) > 1:
-    print(max_cnt_nums[1])
+if (len(n_count) == 1):
+    print(n_count[0][0])
 else:
-    print(max_cnt_nums[0])
+    if n_count[0][1] == n_count[1][1]:
+        print(n_count[1][0])
+    else:
+        print(n_count[0][0])
 print(n_list[-1] - n_list[0])
