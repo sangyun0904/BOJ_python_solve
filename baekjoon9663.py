@@ -16,10 +16,15 @@ def n_queen(step, N):
     
     isAble = [True] * N
     for idx in range(step):
-        attacks = [queens[idx]+(step - idx), queens[idx]-(step-idx), queens[idx]]
-        for a in attacks:
-            if a >= 0 and a<N:
-                isAble[a] = False
+        a1 = queens[idx]+(step - idx)
+        a2 = queens[idx]-(step-idx)
+        a3 = queens[idx]
+        if a1 >= 0 and a1 < N:
+            isAble[a1] = False
+        if a2 >= 0 and a2 < N:
+            isAble[a2] = False
+        if a3 >= 0 and a3 < N:
+            isAble[a3] = False
     for i in range(N):
         if isAble[i]:
             if step == N-1:
