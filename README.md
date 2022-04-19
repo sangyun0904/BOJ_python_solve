@@ -11,8 +11,8 @@
 <hr/>
 
 ### 탐색
-DFS : O(N)
-BFS : O(N)
+DFS : 시간복잡도 O(N) <br/>
+BFS : 시간복잡도 O(N)
 
 <hr/>
 
