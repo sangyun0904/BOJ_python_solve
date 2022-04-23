@@ -1,0 +1,28 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Fri Apr 22 17:18:14 2022
+
+@author: sangyoon
+"""
+
+basket = []
+
+def solution(board, moves):
+    answer = 0
+    for move in moves:
+        for i in range(len(board)):
+            if board[i][move-1] != 0:
+                basket.append(board[i][move-1])
+                board[i][move-1] = 0
+                break
+        while True:
+            if len(basket) < 2:
+                break
+            if basket[-1] != basket[-2]:
+                break
+            print(basket)
+            basket.pop()
+            basket.pop()
+            answer += 1
+    return answer * 2
