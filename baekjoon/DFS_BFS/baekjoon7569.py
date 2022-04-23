@@ -8,6 +8,7 @@ Created on Sat Apr 23 21:46:44 2022
 
 import sys 
 from collections import deque 
+input = sys.stdin.readline
 
 def BFS(start):
     d = 0 
