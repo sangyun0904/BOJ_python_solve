@@ -20,4 +20,4 @@ for i in range(N):
         if A[j] < A[i]:
             memo[i] = max(memo[i],memo[j]+1)
 
-print(memo)
+print(max(memo))
