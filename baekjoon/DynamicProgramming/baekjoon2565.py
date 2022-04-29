@@ -4,7 +4,6 @@ Created on Thu Apr 28 13:29:29 2022
 
 @author: USER
 """
-from itertools import combinations
 import sys
 
 input = sys.stdin.readline
@@ -21,3 +20,6 @@ for i in range(N):
             memo[i] = max(memo[i], memo[j]+1)
             
 print(N - max(memo))
+
+a = "sdgsad"
+a.cou
