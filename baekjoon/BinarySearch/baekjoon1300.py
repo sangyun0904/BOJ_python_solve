@@ -19,11 +19,10 @@ def binary(start, end, k):
             cnt += min(mid // i, N) 
         if cnt < k:
             start = mid + 1 
-        elif cnt > k:
-            end = mid - 1
         else:
-            
-    return mid
+            end = mid - 1
+
+    return start
 
 start = 1 
 end = N ** 2

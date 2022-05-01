@@ -6,34 +6,32 @@ Created on Sat Mar 12 15:37:10 2022
 @author: sangyoon
 """
 
-filename = "baekjoon10816.txt"
-file1 = open(filename, 'r')
+import sys 
+input = sys.stdin.readline 
 
-n = int(file1.readline())
-numList = list(map(int, file1.readline().split()))
-        
-m = int(file1.readline())
-checkList = list(map(int, file1.readline().split()))
+N = int(input())
+n_list = list(map(int, input().split()))
+M = int(input())
+m_list = list(map(int, input().split()))
 
-numDict = {}
+n_list.sort()
+m_list.sort()
+s = 0
 
-for num in checkList:
-    numDict[num] = 0
-
-checkList.sort()
-
-for num in numList:
-    start = 0
-    end = len(checkList) - 1
+for i in m_list :
+    start = s
+    end = N 
     while start <= end:
         mid = (start + end) // 2
-        if checkList[mid] == num:
-            numDict[num] += 1
-            break
-        elif checkList[mid] > num:
-            end = mid - 1
+        if n_list[mid] < i:
+            start = mid + 1 
         else:
-            start = mid + 1
-    
-for i in numDict.values():
-    print(i, end=" ")
+            end = mid - 1 
+    cnt = 0 
+    s = start
+    for j in range(start, N):
+        if n_list[j] == i:
+            cnt += 1 
+        else:
+            break 
+    print(cnt, end=" ")
