@@ -7,51 +7,40 @@ Created on Fri Apr 29 18:47:01 2022
 
 import heapq
 
-graph = []
-visited = []
-dist = []
-isTrap = []
-
-def trap(graph, n):
-    N = len(graph)
-    new = [[] for _ in range(len(graph))]
-    for i in range(len(graph)):
-        for j in graph[i]:
-            if i == n:
-                new[j[0]].append([n, j[1]])
-            else:
-                if j[0] == n:
-                    new[n].append([i, j[1]])
-                else:
-                    new[i].append(j[0], j[1])
-                    
-    return new
-
-def dijkstra(graph, start):
-    q = []
-    heapq.heappush(q, (0, start))
-    visited[start] = True
-    while q:
-        cost, cur = heapq.heappop(q)
-        visited[cur] = True
-        for n, c in graph[cur]:
-            if isTrap[n]:
-                graph = trap(graph, n)
-            if not visited[n]:
-                dist[n] = cost + c
-                heapq.heappush(q, (dist[n], n))
-
+INF = int(1e9)
+    
 def solution(n, start, end, roads, traps):
     answer = 0
     graph = [[] for _ in range(n+1)]
-    visited = [False for _ in range(n+1)]
-    dist = [0 for _ in range(n+1)]
+    reverse_graph = [[] for _ in range(n+1)]
+    dist = [INF for _ in range(n+1)]
     isTrap = [False for _ in range(n+1)]
     for i in traps:
         isTrap[i] = True
     for i in roads:
-        graph[i[0]].append([i[1], i[2]])
-    dijkstra(graph, start)
+        graph[i[0]].append((i[1], i[2]))
+    for i in roads:
+        reverse_graph[i[1]].append((i[0], i[2]))
+        
+    q = []
+    heapq.heappush(q, (0, start))
+    dist[start] = 0
+    while q:
+        cost, cur = heapq.heappop(q)
+        print(dist)
+        if dist[cur] < cost:
+            continue
+        if isTrap[cur]:
+            for i in reverse_graph[cur]:
+                if cost + i[1] < dist[i[0]]:
+                    dist[i[0]] = cost + i[1]
+                    heapq.heappush(q, (cost + i[1], i[0]))
+        else:
+            for i in graph[cur]:
+                if cost + i[1] < dist[i[0]]:
+                    dist[i[0]] = cost + i[1]
+                    heapq.heappush(q, (cost + i[1], i[0]))
+        
     answer = dist[end]
     
     return answer
