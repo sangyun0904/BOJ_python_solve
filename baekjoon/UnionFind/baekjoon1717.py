@@ -10,9 +10,11 @@ import sys
 input = sys.stdin.readline 
 
 def find_parent(a):
-    while a != graph[a]:
-        a = graph[a]
-    return a
+    temp = a
+    while temp != graph[temp]:
+        temp = graph[temp]
+    graph[a] = temp
+    return temp
         
 
 def func_1(a, b):
