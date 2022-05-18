@@ -1,0 +1,24 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Wed May 18 16:44:05 2022
+
+@author: sangyoon
+"""
+
+import sys 
+input = sys.stdin.readline 
+
+stack = []
+answer = 0
+
+K = int(input())
+for _ in range(K):
+    n = int(input())
+    if n != 0:
+        stack.append(n)
+        answer += n
+    else:
+        if stack:
+            answer -= stack.pop()
+print(answer)
