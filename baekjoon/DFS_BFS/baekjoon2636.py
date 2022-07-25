@@ -20,17 +20,17 @@ def findEdge(start):
         x, y = queue.popleft()
         for i in range(4):
             xx = dx[i] + x 
-            yy = dx[i] + y 
+            yy = dy[i] + y 
             if 0 <= xx < M and 0 <= yy < N:
                 if not visited[yy][xx]:
                     if graph[yy][xx] == 0:
                         visited[yy][xx] = True
                         queue.append([xx, yy])
                     elif graph[yy][xx] == 1:
-                        visited[yy][xx]
+                        visited[yy][xx] = True
                         melt.append([xx, yy])
                     else:
-                        visited[yy][xx]
+                        visited[yy][xx] = True
                         isOutside = True
                         queue.append([xx, yy])
     if isOutside:
@@ -60,11 +60,13 @@ while True:
     visited = [[False for _ in range(M)] for _ in range(N)]      
     for i in range(N):
         for j in range(M):
-            if graph[i][j] == 0:
-                melt.append(findEdge([j, i]))
+            if graph[i][j] != 1:
+                melt.extend(findEdge([j, i]))
     if melt == []:
         break
     last = len(melt)
     for loc in melt:
         graph[loc[1]][loc[0]] = 0 
     
+print(hour-1)
+print(last)
