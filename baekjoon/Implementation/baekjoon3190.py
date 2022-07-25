@@ -46,17 +46,12 @@ for _ in range(L):
             tail = snake.popleft()
             board[tail[0]][tail[1]] = 0 
         elif board[yy][xx] == 1:
-            ans += 1 
             gameEnd = True
         else:
             snake.append([yy,xx])
             board[yy][xx] = 1
         if gameEnd:
             break 
-        print(ans)
-        for line in board:
-            print(line)
-        print()
         
     if gameEnd:
         break 
@@ -79,6 +74,24 @@ for _ in range(L):
                 direction = [0,-1]
             else:
                 direction = [-1,0]
+                
+while not gameEnd:
+    ans += 1
+    head = snake[-1]
+    yy = head[0] + direction[0]
+    xx = head[1] + direction[1]
+    if board[yy][xx] == 0:
+        snake.append([yy,xx])
+        board[yy][xx] = 1 
+        tail = snake.popleft()
+        board[tail[0]][tail[1]] = 0 
+    elif board[yy][xx] == 1:
+        gameEnd = True
+    else:
+        snake.append([yy,xx])
+        board[yy][xx] = 1
+    if gameEnd:
+        break 
     
 print(ans)
                 
