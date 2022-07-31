@@ -26,9 +26,6 @@ for _ in range(N):
 momShark = False
 ans = 0
 
-order = [[0 for _ in range(N)] for _ in range(N)]
-cnt = 0
-
 def findFish(start):
     visited = [[False for _ in range(N)] for _ in range(N)]
     
@@ -79,12 +76,6 @@ while momShark == False:
                     graph[y][x] = 9
                     ans += dist
                     
-                    cnt+= 1 
-                    order[y][x] = cnt
-                    
-                
-print(ans)  
-for line in order:
-    print(line)             
+print(ans)            
                     
             
