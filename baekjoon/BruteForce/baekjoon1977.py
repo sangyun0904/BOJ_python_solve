@@ -20,6 +20,9 @@ while i*i <= N:
         if ans2 == 0:
             ans2 = i*i
     i += 1
-    
-print(ans1)
-print(ans2)
+
+if ans1 == 0:
+    print(-1)
+else:
+    print(ans1)
+    print(ans2)
