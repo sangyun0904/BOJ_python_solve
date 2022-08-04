@@ -7,22 +7,11 @@ Created on Wed Aug  3 21:18:39 2022
 """
 
 N = int(input())
-price = list(map(int, input().split()))
-
-memo = [[0 for _ in range(N+1)] for _ in range(N+1)]
+price = [0] + list(map(int, input().split()))
+dp = [0 for _ in range(N+1)]
 
 for i in range(1, N+1):
-    for j in range(1, N+1):
-        if i > j:
-            memo[i][j] = memo[i-1][j]
-        else:
-            if j % i == 0:
-                cost = (j // i) * price[i-1]
-            else:
-                cost = max((j // i) * price[i-1] + memo[i][j % i], (j // i -1) * price[i-1] + memo[i][j % i + i])
-            if cost > memo[i-1][j]:
-                memo[i][j] = cost 
-            else:
-                memo[i][j] = memo[i-1][j]
-                
-print(memo[-1][-1])
+    for  k in range(1, i+1):
+        dp[i] = max(dp[i], dp[i-k] + price[k]) 
+        
+print(dp[-1])        
