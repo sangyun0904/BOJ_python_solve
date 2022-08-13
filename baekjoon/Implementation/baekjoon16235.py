@@ -12,7 +12,6 @@ input = sys.stdin.readline
 N, M, K = map(int, input().split())
 
 land = [[5 for _ in range(N)] for _ in range(N)]
-summer_land = [[0 for _ in range(N)] for _ in range(N)]
 
 A = []
 dx = [-1,1,0,0,-1,1,-1,1]
@@ -29,6 +28,7 @@ for _ in range(M):
 tree.sort(key=lambda x: -x[2])
     
 def spring_summer():
+    die = []
     for i in range(len(tree)-1, -1, -1):
         r, c, age = tree[i]
         r -= 1 
@@ -38,7 +38,15 @@ def spring_summer():
             tree[i][2] += 1
         else:
             tree.pop(i)
-            summer_land[r][c] = age // 2 + land[r][c]
+            die.append([r, c, age // 2])
+            
+    for j in die:
+        r, c, food = j 
+        r -= 1
+        c -= 1 
+        land[r][c] += food
+        
+    return
 
 def autumn():
     for i in range(len(tree)):
@@ -59,14 +67,9 @@ def winter():
         for j in range(N):
             land[i][j] += A[i][j]
 
-for _ in range(K):
-    summer_land = land.copy()
+for i in range(K):
     spring_summer()
-    land = summer_land
     autumn()
     winter()
     
-    print(len(tree))   
-    
-for i in land:
-    print(i)
+print(len(tree))   
