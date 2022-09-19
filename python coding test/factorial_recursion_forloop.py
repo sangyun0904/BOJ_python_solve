@@ -7,7 +7,7 @@ Created on Sun Sep 18 15:17:19 2022
 """
 import time
 
-n = 2000
+n = 100000
 
 def factorial_recursion(x):
     if x > 0:
@@ -22,12 +22,12 @@ def factorial_loop(x):
     return result
 
 
-recur_start = time.time()
-factorial_recursion(n)
-recur_end = time.time()
-recur_delta = recur_end - recur_start
+# recur_start = time.time()
+# factorial_recursion(n)
+# recur_end = time.time()
+# recur_delta = recur_end - recur_start
 
-print("Recursion DeltaT %2.9f sec" % recur_delta)
+# print("Recursion DeltaT %2.9f sec" % recur_delta)
 
 loop_start = time.time()
 factorial_loop(n)
