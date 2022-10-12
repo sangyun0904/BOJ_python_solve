@@ -20,10 +20,5 @@ for _ in range(T):
     for i in range(1, N):
         for j in range(N-i):
             memo[j][j+i] = min([memo[j][j+k] + memo[j+k+1][j+i] for k in range(i)]) + sum(data[j:j+i+1])
-            if i == N-1:
-                print(j, i)
-                print(data[j:j+i+1])
             
-    for i in memo:
-        print(i)
-    print()
+    print(memo[0][-1])
