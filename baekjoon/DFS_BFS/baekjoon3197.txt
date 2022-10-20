@@ -1,5 +1,11 @@
-4 11
-..XXX...X..
-.X.XXX...L.
-....XXX..X.
-X.L..XXX...
+10 2
+.L
+..
+XX
+XX
+XX
+XX
+XX
+XX
+..
+.L
