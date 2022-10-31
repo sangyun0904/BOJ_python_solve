@@ -7,7 +7,6 @@ Created on Mon Oct 31 15:14:07 2022
 """
 
 import sys 
-from collections import deque
 input = sys.stdin.readline 
 
 class TreeNode():
@@ -18,6 +17,23 @@ class TreeNode():
     def __init__(self, data, parent = None):
         self.data = data
         self.parent = parent
+        
+def makeTree(cur):
+    for i in graph[cur.data]:
+        if not visited[i]:
+            new_node = TreeNode(i, cur)
+            cur.childs.append(new_node)
+            visited[i] = True
+            makeTree(new_node)
+            
+def postOrder(cur):
+    global cnt 
+    
+    for child in cur.childs:
+        postOrder(child)
+        
+    cnt += 1 
+    answer[cur.data] = cnt
 
 N, R, Q = map(int, input().split())
 graph = [[] for _ in range(N+1)]
@@ -31,16 +47,18 @@ visited = [False for _ in range(N+1)]
 root_node = TreeNode(R)
 visited[R] = True 
 
-q = deque([R])
+makeTree(root_node)
 
-cur_node = root_node
+answer = [0 for _ in range(N+1)]
 
-while q:
-    cur = q.popleft()
+cnt = 0
+
+print(root_node.data)
+for i in root_node.childs:
+    print(i.data)
     
-    new_node = TreeNode(cur, cur_node)
-    
-    for i in graph[cur]:
-        if not visited[i]:
-            visited[i] = True 
-            q.append(i)
+print(graph)
+#postOrder(root_node)
+
+#for i in range(Q):
+#    print(answer[int(input())])
