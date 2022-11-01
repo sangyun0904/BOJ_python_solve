@@ -7,33 +7,16 @@ Created on Mon Oct 31 15:14:07 2022
 """
 
 import sys 
+from collections import deque 
 input = sys.stdin.readline 
 
-class TreeNode():
-    data = None
-    parent = None 
-    childs = []
-    
-    def __init__(self, data, parent = None):
-        self.data = data
-        self.parent = parent
-        
 def makeTree(cur):
-    for i in graph[cur.data]:
+    for i in graph[cur]:
         if not visited[i]:
-            new_node = TreeNode(i, cur)
-            cur.childs.append(new_node)
-            visited[i] = True
-            makeTree(new_node)
-            
-def postOrder(cur):
-    global cnt 
-    
-    for child in cur.childs:
-        postOrder(child)
-        
-    cnt += 1 
-    answer[cur.data] = cnt
+            visited[i] = True 
+            TreeNodes[cur][-1].append(i)
+            TreeNodes[i][0] = cur 
+            makeTree(i)
 
 N, R, Q = map(int, input().split())
 graph = [[] for _ in range(N+1)]
@@ -43,22 +26,33 @@ for _ in range(N-1):
     graph[a].append(b)
     graph[b].append(a)
 
-visited = [False for _ in range(N+1)]
-root_node = TreeNode(R)
-visited[R] = True 
-
-makeTree(root_node)
-
-answer = [0 for _ in range(N+1)]
-
-cnt = 0
-
-print(root_node.data)
-for i in root_node.childs:
-    print(i.data)
     
-print(graph)
-#postOrder(root_node)
+TreeNodes = [[0, []] for _ in range(N+1)]
+visited = [False for _ in range(N+1)]
+visited[R] = True
 
-#for i in range(Q):
-#    print(answer[int(input())])
+makeTree(R)
+
+visited = [False for _ in range(N+1)]
+visited[0] = True
+answer = [1 for _ in range(N+1)]
+
+q = deque()
+for i in range(1, N+1):
+    if TreeNodes[i][-1] == []:
+        q.append(i)
+        visited[i] = True
+        
+while q:
+    cur = q.popleft() 
+    temp = 0 
+    for i in TreeNodes[cur][-1]:
+        temp += answer[i]
+    parent = TreeNodes[cur][0]
+    if not visited[parent]:
+        q.append(parent)
+        visited[parent] = True
+    answer[cur] += temp 
+    
+for i in range(Q):
+    print(answer[int(input())])
