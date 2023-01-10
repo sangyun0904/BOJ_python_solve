@@ -1,42 +1,33 @@
 import sys 
 input = sys.stdin.readline 
 
-def isPalin(strin):
-    cnt = 0 
-    char_cnt = {}
-    for i in strin:
-        if i in char_cnt:
-            char_cnt[i] += 1
+def isPalin(word):
+    left = 0 
+    right = len(word)-1 
+    while right > left :
+        if word[left] == word[right]:
+            left += 1 
+            right -= 1 
         else:
-            char_cnt[i] = 1
-    s = 0 
-    e = len(strin)-1 
-    while e > s :
-        if strin[s] == strin[e]:
-            s += 1 
-            e -= 1 
-        elif cnt == 1:
-            return 2 
-        elif char_cnt[strin[s]] % 2 == 1 and char_cnt[strin[e]] % 2 == 1:
-            s += 1 
-            e -= 1 
-            cnt += 1
-        elif char_cnt[strin[s]] % 2 == 1:
-            s += 1 
-            cnt += 1
-        elif char_cnt[strin[e]] % 2 == 1:
-            e -= 1
-            cnt += 1 
-        else:
+            if isSimilarPalin(left+1, right, word) or isSimilarPalin(left, right-1, word):
+                return 1
             return 2 
 
-    if cnt == 1:
-        return 1 
-    else:
-        return 0
+    return 0
+
+
+def isSimilarPalin(left, right, word):
+    while right > left:
+        if word[left] == word[right]:
+            left += 1 
+            right -= 1 
+        else:
+            return False
+    return True
+
 
 N = int(input())
 
 for _ in range(N):
-    strin = input().strip()
-    print(isPalin(strin))
+    word = input().strip()
+    print(isPalin(word))
