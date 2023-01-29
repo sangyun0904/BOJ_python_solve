@@ -10,19 +10,29 @@ cities = []
 for _ in range(N):
     cities.append(list(map(int, input().split())))
 
-for i in cities:
-    print(i)
 
-def Backtracking(n, d):
-    if visited == [True, True, True, True]:
-        if d < answer:
-            answer = d 
-            return 
+def Backtracking(n, d, bitmask):
+    global answer
+    if bitmask == 2**N-1:
+        if cities[n][start] != 0:
+            if d + cities[n][start] < answer:
+                answer = d + cities[n][start]
+        return 
+    else:
+        for i in range(N):
+            if not bitmask & (1<<i) and cities[n][i] != 0:
+                Backtracking(i, d+cities[n][i], bitmask + (1<<i))
+
+    return
         
 
-
+start = 0
 answer = MAX_DIST * N 
 
 for i in range(N):
-    visited = [False for _ in range(N)]
-    Backtracking(i)
+    start = i
+    bitmask = 1 << i
+    Backtracking(i, 0, bitmask)
+
+
+print(answer)
