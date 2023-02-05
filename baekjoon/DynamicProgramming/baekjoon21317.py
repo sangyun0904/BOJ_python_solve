@@ -33,5 +33,3 @@ if min(memo[-1]) != 0:
     print(min(memo[-1]))
 else:
     print(memo[-1][0])
-
-print(memo)
